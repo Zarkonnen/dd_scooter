@@ -48,19 +48,23 @@ Window {
 
 
 		Repeater {
-			model: (Math.ceil(screen.height / screen.width) | 0) + 1
+			id: roadRepeater
+			property int screenTileCount: (Math.ceil(screen.height / (screen.width / 4.)) | 0) + 1
+			model: screenTileCount
 			Image {
-				source: "content/gfx/road.png"
+				source: "content/gfx/road/road" + Math.floor(Math.random() * 3) + ".svg"
 				width: screen.width
-				height: width
-				y: startY
-				property real startY: index * width - width
+				sourceSize.width: width
+				height: width / 4
+				sourceSize.height: height
+				y: (((index + time) % roadRepeater.screenTileCount) - 1) * height
+				property real time: 0
 
-				SequentialAnimation on y {
+				SequentialAnimation on time {
 					loops: Animation.Infinite
 					PropertyAnimation {
-						to: startY + width
-						duration: 1000
+						to: roadRepeater.screenTileCount
+						duration: 5000
 					}
 				}
 			}

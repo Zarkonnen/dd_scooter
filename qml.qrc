@@ -6,5 +6,8 @@
         <file>content/gfx/road.png</file>
         <file>content/gfx/adds/oniri.jpg</file>
         <file>content/gfx/adds/thymio.jpg</file>
+        <file>content/gfx/road/road0.svg</file>
+        <file>content/gfx/road/road1.svg</file>
+        <file>content/gfx/road/road2.svg</file>
     </qresource>
 </RCC>
