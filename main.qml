@@ -29,13 +29,14 @@ Window {
 
 		property bool playing: state === "playing"
 
-		function crash() {
-			state = "crash";
+		function crashScooter() {
 			fruitCount -= 1;
+			state = "crash";
 		}
 
 		function startPlaying() {
 			particleSystem.reset();
+			mouseArea.wasKeyPressendInThisGame = false;
 			state = "playing";
 		}
 
@@ -129,7 +130,7 @@ Window {
 						if (Math.abs(thisCar.x - scooter.x) < screen.sizeUnit * (0.25+0.125) &&
 							Math.abs(thisCar.y - scooter.y) < screen.sizeUnit * (0.5+0.25)) {
 							console.log("Collision");
-							game.crash();
+							game.crashScooter();
 							return;
 						}
 					}
@@ -312,13 +313,21 @@ Window {
 		}
 
 		MouseArea {
+			id: mouseArea
 			enabled: parent.playing
 			anchors.fill: parent
+			property bool wasKeyPressendInThisGame: false
+
 			onMouseXChanged: {
 				scooterX = Math.max(sceneMargin, Math.min(mouse.x, screen.width - sceneMargin))
 			}
+			onPressed: {
+				wasKeyPressendInThisGame = true;
+			}
+
 			onReleased: {
-				game.crash();
+				if (wasKeyPressendInThisGame)
+					game.crashScooter();
 			}
 		}
 
