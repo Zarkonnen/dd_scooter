@@ -20,6 +20,12 @@ Window {
 	property real sizeUnit: width / 6
 	property real sceneMargin: sizeUnit*0.5
 
+	property var adds: [
+		{ img: "oniri.jpg", url: "http://tourmaline-studio.com/" },
+		//{ img: "thymio.jpg", url: "http://swissnexindia.org" },
+		{ img: "thymio.jpg", url: "http://thymio.org" }
+	]
+
 	Item
 	{
 		id: game
@@ -236,6 +242,9 @@ Window {
 
 			onVisibleChanged: {
 				if (visible) {
+					var index = Math.floor(Math.random() * adds.length);
+					addImage.source = "content/gfx/adds/" + adds[index].img;
+					addImage.url = adds[index].url;
 					continueButton.enabled = false;
 					continueTimer.start();
 					counter = initialCounter;
@@ -254,7 +263,7 @@ Window {
 
 			Rectangle {
 				anchors.fill: parent
-				color: "#d0000000"
+				color: "#70000000"
 			}
 
 			ColumnLayout {
@@ -263,10 +272,16 @@ Window {
 				anchors.right: parent.right
 				anchors.verticalCenter: parent.verticalCenter
 				Image {
+					id: addImage
 					Layout.alignment: Qt.AlignBottom
-					source: "content/gfx/adds/oniri.jpg"
+					source: ""
+					property string url
 					Layout.fillWidth: true
 					Layout.preferredHeight: width
+					MouseArea {
+						anchors.fill: parent
+						onClicked: Qt.openUrlExternally(parent.url)
+					}
 				}
 				Item {
 					Layout.alignment: Qt.AlignTop
