@@ -83,7 +83,6 @@ Window {
 			property real maxCarSpeed: sizeUnit * 70
 
 			Emitter {
-				id: emitter
 				group: "car"
 
 				width: parent.width
@@ -93,7 +92,7 @@ Window {
 				startTime: 2000
 
 				maximumEmitted: 100
-				emitRate: 2.+game.score * 0.02
+				emitRate: 1. + game.score * 0.02
 				lifeSpan: Emitter.InfiniteLife
 
 				velocity: PointDirection{ y: -40*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 30*particleSystem.speedUnit }
@@ -102,24 +101,45 @@ Window {
 				size: screen.sizeUnit
 			}
 
+			Emitter {
+				group: "tuktuk"
+
+				width: parent.width
+				height: screen.sizeUnit*3
+				anchors.bottom: parent.bottom
+				anchors.bottomMargin: -4*screen.sizeUnit
+				startTime: 2000
+
+				maximumEmitted: 100
+				emitRate: 1. + game.score * 0.02
+				lifeSpan: Emitter.InfiniteLife
+
+				velocity: PointDirection{ y: -10*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 7*particleSystem.speedUnit }
+				acceleration: PointDirection{ y: -3*particleSystem.speedUnit; xVariation: 1.5*particleSystem.speedUnit; yVariation: 1*particleSystem.speedUnit }
+
+				size: screen.sizeUnit * 0.7
+			}
+
 			Wander {
-				groups: ["car"]
+				groups: ["car", "tuktuk"]
 				xVariance: particleSystem.speedUnit * 10
 				pace: particleSystem.speedUnit * 10
 				affectedParameter: Wander.Acceleration
 			}
 
 			Affector {
-				groups: ["car"]
+				groups: ["car", "tuktuk"]
 				onAffectParticles: {
 					// collision detection
+					console.log(particles.length);
 					for (var i=0; i<particles.length; i++) {
 						// other cars
 						var thisCar = particles[i];
+						//console.log(thisCar.startSize);
 						for (var j=0; j<i; j++) {
 							var thatCar = particles[j];
-							if (Math.abs(thisCar.x - thatCar.x) < screen.sizeUnit * 0.5 &&
-								Math.abs(thisCar.y - thatCar.y) < screen.sizeUnit * 1.3) {
+							if (Math.abs(thisCar.x - thatCar.x) < (thisCar.startSize*0.3 + thatCar.startSize*0.3) &&
+								Math.abs(thisCar.y - thatCar.y) < (thisCar.startSize*0.65 + thatCar.startSize*0.65)) {
 								// we have a collision, find which car is front/back
 								var frontCar = null;
 								var backCar = null;
@@ -142,20 +162,21 @@ Window {
 						}
 						// scooter
 						if (game.playing &&
-							Math.abs(thisCar.x - scooter.x) < screen.sizeUnit * (0.25+0.125) &&
-							Math.abs(thisCar.y - scooter.y) < screen.sizeUnit * (0.5+0.25)) {
+							Math.abs(thisCar.x - scooter.x) < (thisCar.startSize*0.25 + screen.sizeUnit *0.125) &&
+							Math.abs(thisCar.y - scooter.y) < (thisCar.startSize*0.5 + screen.sizeUnit *0.25)) {
 							console.log("Collision");
 							game.crashScooter();
 							return;
 						}
 					}
-					// bound velocity
+					// bound velocity and kill old particles
 					for (var i=0; i<particles.length; i++) {
 						var car = particles[i];
+						var thisCarMaxSpeed = particleSystem.maxCarSpeed * car.startSize / 50.;
 						if (car.y < -screen.sizeUnit * 0.5) {
 							car.lifeSpan = 0;
-						} else if (car.vy < -particleSystem.maxCarSpeed) {
-							car.vy = -particleSystem.maxCarSpeed;
+						} else if (car.vy < -thisCarMaxSpeed) {
+							car.vy = -thisCarMaxSpeed;
 							car.update = true;
 						}
 					}
@@ -164,8 +185,15 @@ Window {
 
 			ImageParticle {
 				groups: ["car"]
-				source: "assets/gfx/car.png"
+				source: "assets/gfx/vehicles/car.png"
 				colorVariation: 1.0
+				entryEffect: ImageParticle.None
+			}
+
+			ImageParticle {
+				groups: ["tuktuk"]
+				source: "assets/gfx/vehicles/tuktuk.png"
+				colorVariation: 0.1
 				entryEffect: ImageParticle.None
 			}
 		}
@@ -176,7 +204,7 @@ Window {
 			y: (parent.height - height) / 3
 			visible: parent.playing
 			Image {
-				source: "assets/gfx/scooter.png"
+				source: "assets/gfx/vehicles/scooter.png"
 				x: -width/2
 				y: -height/2
 				width: screen.sizeUnit/2
