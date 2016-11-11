@@ -57,7 +57,7 @@ Window {
 			property int screenTileCount: (Math.ceil(screen.height / (screen.width / 4.)) | 0) + 1
 			model: screenTileCount
 			Image {
-				source: "assets/gfx/road/road" + Math.floor(Math.random() * 3) + ".svg"
+				source: "assets/gfx/road/road" + Math.floor(Math.random() * 3) + ".png"
 				width: screen.width
 				sourceSize.width: width
 				height: width / 4
@@ -88,10 +88,10 @@ Window {
 				width: parent.width
 				height: screen.sizeUnit*3
 				anchors.bottom: parent.bottom
-				anchors.bottomMargin: -4*screen.sizeUnit
+				anchors.bottomMargin: -(height + size)
 				startTime: 2000
 
-				maximumEmitted: 100
+				maximumEmitted: 50
 				emitRate: 1. + game.score * 0.02
 				lifeSpan: Emitter.InfiniteLife
 
@@ -107,10 +107,10 @@ Window {
 				width: parent.width
 				height: screen.sizeUnit*3
 				anchors.bottom: parent.bottom
-				anchors.bottomMargin: -4*screen.sizeUnit
+				anchors.bottomMargin: -(height + size)
 				startTime: 2000
 
-				maximumEmitted: 100
+				maximumEmitted: 50
 				emitRate: 1. + game.score * 0.02
 				lifeSpan: Emitter.InfiniteLife
 
@@ -139,7 +139,7 @@ Window {
 						for (var j=0; j<i; j++) {
 							var thatCar = particles[j];
 							if (Math.abs(thisCar.x - thatCar.x) < (thisCar.startSize*0.3 + thatCar.startSize*0.3) &&
-								Math.abs(thisCar.y - thatCar.y) < (thisCar.startSize*0.65 + thatCar.startSize*0.65)) {
+								Math.abs(thisCar.y - thatCar.y) < (thisCar.startSize*0.7 + thatCar.startSize*0.7)) {
 								// we have a collision, find which car is front/back
 								var frontCar = null;
 								var backCar = null;
@@ -239,6 +239,7 @@ Window {
 			anchors.centerIn: parent
 			font.pixelSize: screen.sizeUnit
 			text: "New game"
+			color: "white"
 			visible: game.state === "splash"
 			MouseArea {
 				anchors.fill: parent

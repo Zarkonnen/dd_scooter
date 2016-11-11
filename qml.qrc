@@ -3,9 +3,6 @@
         <file>main.qml</file>
         <file>assets/gfx/adds/oniri.jpg</file>
         <file>assets/gfx/adds/thymio.jpg</file>
-        <file>assets/gfx/road/road0.svg</file>
-        <file>assets/gfx/road/road1.svg</file>
-        <file>assets/gfx/road/road2.svg</file>
         <file>assets/gfx/adds/swissnexindia.png</file>
         <file>assets/gfx/adds/airships.jpg</file>
         <file>assets/gfx/adds/ecal.jpg</file>
@@ -16,5 +13,8 @@
         <file>assets/gfx/vehicles/car.png</file>
         <file>assets/gfx/vehicles/scooter.png</file>
         <file>assets/gfx/vehicles/tuktuk.png</file>
+        <file>assets/gfx/road/road0.png</file>
+        <file>assets/gfx/road/road1.png</file>
+        <file>assets/gfx/road/road2.png</file>
     </qresource>
 </RCC>
