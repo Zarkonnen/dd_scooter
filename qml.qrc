@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>content/gfx/car.png</file>
+        <file>content/gfx/bike.png</file>
+        <file>content/gfx/road.png</file>
+        <file>content/gfx/adds/oniri.jpg</file>
+    </qresource>
+</RCC>
