@@ -1,13 +1,20 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>content/gfx/car.png</file>
-        <file>content/gfx/bike.png</file>
-        <file>content/gfx/road.png</file>
-        <file>content/gfx/adds/oniri.jpg</file>
-        <file>content/gfx/adds/thymio.jpg</file>
-        <file>content/gfx/road/road0.svg</file>
-        <file>content/gfx/road/road1.svg</file>
-        <file>content/gfx/road/road2.svg</file>
+        <file>assets/gfx/car.png</file>
+        <file>assets/gfx/bike.png</file>
+        <file>assets/gfx/road.png</file>
+        <file>assets/gfx/adds/oniri.jpg</file>
+        <file>assets/gfx/adds/thymio.jpg</file>
+        <file>assets/gfx/road/road0.svg</file>
+        <file>assets/gfx/road/road1.svg</file>
+        <file>assets/gfx/road/road2.svg</file>
+        <file>assets/gfx/adds/swissnexindia.png</file>
+        <file>assets/gfx/adds/airships.jpg</file>
+        <file>assets/gfx/adds/ecal.jpg</file>
+        <file>assets/gfx/adds/scribb.jpg</file>
+        <file>assets/gfx/adds/wvrf.jpg</file>
+        <file>assets/gfx/adds/ethgtc.png</file>
+        <file>screens/AddsScreen.qml</file>
     </qresource>
 </RCC>

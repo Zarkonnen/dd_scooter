@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Particles 2.0
-import QtQuick.Layouts 1.1
+import "screens"
 
 Window {
 	id: screen
@@ -22,8 +22,13 @@ Window {
 
 	property var adds: [
 		{ img: "oniri.jpg", url: "http://tourmaline-studio.com/" },
-		//{ img: "thymio.jpg", url: "http://swissnexindia.org" },
-		{ img: "thymio.jpg", url: "http://thymio.org" }
+		{ img: "swissnexindia.png", url: "http://swissnexindia.org" },
+		{ img: "thymio.jpg", url: "http://thymio.org" },
+		{ img: "airships.jpg", url: "http://store.steampowered.com/app/342560" },
+		{ img: "wvrf.jpg", url: "http://worldvrforum.com" },
+		{ img: "ecal.jpg", url: "http://www.ecal.ch" },
+		{ img: "scribb.jpg", url: "http://www.mylenedreyer.ch" },
+		{ img: "ethgtc.png", url: "http://gtc.ethz.ch" }
 	]
 
 	Item
@@ -52,7 +57,7 @@ Window {
 			property int screenTileCount: (Math.ceil(screen.height / (screen.width / 4.)) | 0) + 1
 			model: screenTileCount
 			Image {
-				source: "content/gfx/road/road" + Math.floor(Math.random() * 3) + ".svg"
+				source: "assets/gfx/road/road" + Math.floor(Math.random() * 3) + ".svg"
 				width: screen.width
 				sourceSize.width: width
 				height: width / 4
@@ -159,7 +164,7 @@ Window {
 
 			ImageParticle {
 				groups: ["car"]
-				source: "content/gfx/car.png"
+				source: "assets/gfx/car.png"
 				colorVariation: 1.0
 				entryEffect: ImageParticle.None
 			}
@@ -171,7 +176,7 @@ Window {
 			y: (parent.height - height) / 3
 			visible: parent.playing
 			Image {
-				source: "content/gfx/bike.png"
+				source: "assets/gfx/bike.png"
 				x: -width/2
 				y: -height/2
 				width: screen.sizeUnit/2
@@ -236,98 +241,20 @@ Window {
 		}
 
 		// adds screen
-
-		Item {
+		AddsScreen {
 			id: addsScreen
 			anchors.fill: parent
 			visible: game.state === "adds"
-			property int counter
-			property int initialCounter: 10
 
-			onVisibleChanged: {
-				if (visible) {
-					var index = Math.floor(Math.random() * adds.length);
-					addImage.source = "content/gfx/adds/" + adds[index].img;
-					addImage.url = adds[index].url;
-					continueButton.enabled = false;
-					continueTimer.start();
-					counter = initialCounter;
-				}
+			onContinueButtonClicked: {
+				fruitCount += 1;
+				game.startPlaying();
 			}
 
-			Timer {
-				id: continueTimer
-				interval: 1000; running: false; repeat: true;
-				onTriggered: {
-					addsScreen.counter -= 1;
-					if (addsScreen.counter == 0)
-						continueButton.enabled = true;
-				}
-			}
-
-			Rectangle {
-				anchors.fill: parent
-				color: "#70000000"
-			}
-
-			ColumnLayout {
-				spacing: 0
-				anchors.left: parent.left
-				anchors.right: parent.right
-				anchors.verticalCenter: parent.verticalCenter
-				Image {
-					id: addImage
-					Layout.alignment: Qt.AlignBottom
-					source: ""
-					property string url
-					Layout.fillWidth: true
-					Layout.preferredHeight: width
-					MouseArea {
-						anchors.fill: parent
-						onClicked: Qt.openUrlExternally(parent.url)
-					}
-				}
-				Item {
-					Layout.alignment: Qt.AlignTop
-					Layout.preferredHeight: screen.sizeUnit * 0.2
-					Layout.fillWidth: true
-					Rectangle {
-						width: parent.width * addsScreen.counter / addsScreen.initialCounter;
-						height: parent.height
-						color: "white"
-					}
-				}
-				Text {
-					id: continueButton
-					Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-					Layout.margins: screen.sizeUnit * 0.1
-					Layout.topMargin: screen.sizeUnit * 0.2
-					font.pixelSize: screen.sizeUnit * 0.5
-					text: "Continue"
-					color: enabled ? "white" : "gray"
-					MouseArea {
-						anchors.fill: parent
-						onClicked: {
-							fruitCount += 1;
-							game.startPlaying();
-						}
-					}
-				}
-				Text {
-					Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-					Layout.margins: screen.sizeUnit * 0.1
-					font.pixelSize: screen.sizeUnit * 0.5
-					text: "New Game"
-					color: "white"
-					MouseArea {
-						anchors.fill: parent
-						onClicked: {
-							score = 0;
-							fruitCount = initialFruitCount;
-							game.startPlaying();
-						}
-					}
-				}
+			onNewGameButtonClicked: {
+				score = 0;
+				fruitCount = initialFruitCount;
+				game.startPlaying();
 			}
 		}
 
