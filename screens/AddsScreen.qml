@@ -61,7 +61,7 @@ Item {
 			Rectangle {
 				width: parent.width * addsScreen.counter / addsScreen.initialCounter;
 				height: parent.height
-				color: "white"
+				color: "gray"
 			}
 		}
 		Text {

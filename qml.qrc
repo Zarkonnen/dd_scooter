@@ -3,7 +3,6 @@
         <file>main.qml</file>
         <file>assets/gfx/car.png</file>
         <file>assets/gfx/bike.png</file>
-        <file>assets/gfx/road.png</file>
         <file>assets/gfx/adds/oniri.jpg</file>
         <file>assets/gfx/adds/thymio.jpg</file>
         <file>assets/gfx/road/road0.svg</file>
@@ -16,5 +15,7 @@
         <file>assets/gfx/adds/wvrf.jpg</file>
         <file>assets/gfx/adds/ethgtc.png</file>
         <file>screens/AddsScreen.qml</file>
+        <file>assets/gfx/car.svg</file>
+        <file>assets/gfx/scooter.png</file>
     </qresource>
 </RCC>

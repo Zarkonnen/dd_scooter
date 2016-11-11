@@ -11,12 +11,6 @@ Window {
 	contentOrientation: Qt.PortraitOrientation
 	title: qsTr("DareDevil Scooter")
 
-	property int initialFruitCount: 2
-	property int fruitCount: initialFruitCount
-	property int score: 0
-
-	property real scooterX: width/2
-
 	property real sizeUnit: width / 6
 	property real sceneMargin: sizeUnit*0.5
 
@@ -36,19 +30,25 @@ Window {
 		id: game
 		anchors.fill: parent
 
+		property int initialFruitCount: 2
+		property int fruitCount: initialFruitCount
+		property int score: 0
+
+		property real scooterX: width/2
+
 		state: "splash"
 
 		property bool playing: state === "playing"
 
 		function crashScooter() {
-			fruitCount -= 1;
-			state = "crash";
+			game.fruitCount -= 1;
+			game.state = "crash";
 		}
 
 		function startPlaying() {
 			particleSystem.reset();
 			mouseArea.wasKeyPressendInThisGame = false;
-			state = "playing";
+			game.state = "playing";
 		}
 
 
@@ -93,7 +93,7 @@ Window {
 				startTime: 2000
 
 				maximumEmitted: 100
-				emitRate: 2.+score * 0.02
+				emitRate: 2.+game.score * 0.02
 				lifeSpan: Emitter.InfiniteLife
 
 				velocity: PointDirection{ y: -40*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 30*particleSystem.speedUnit }
@@ -111,7 +111,6 @@ Window {
 
 			Affector {
 				groups: ["car"]
-				enabled: game.playing
 				onAffectParticles: {
 					// collision detection
 					for (var i=0; i<particles.length; i++) {
@@ -142,7 +141,8 @@ Window {
 							}
 						}
 						// scooter
-						if (Math.abs(thisCar.x - scooter.x) < screen.sizeUnit * (0.25+0.125) &&
+						if (game.playing &&
+							Math.abs(thisCar.x - scooter.x) < screen.sizeUnit * (0.25+0.125) &&
 							Math.abs(thisCar.y - scooter.y) < screen.sizeUnit * (0.5+0.25)) {
 							console.log("Collision");
 							game.crashScooter();
@@ -172,11 +172,11 @@ Window {
 
 		Item {
 			id: scooter
-			x: scooterX
+			x: game.scooterX
 			y: (parent.height - height) / 3
 			visible: parent.playing
 			Image {
-				source: "assets/gfx/bike.png"
+				source: "assets/gfx/scooter.png"
 				x: -width/2
 				y: -height/2
 				width: screen.sizeUnit/2
@@ -189,7 +189,7 @@ Window {
 			anchors.leftMargin: screen.sizeUnit * 0.5
 			anchors.top: parent.top
 			anchors.topMargin: screen.sizeUnit * 0.5
-			text: score
+			text: game.score
 			font.pixelSize: screen.sizeUnit * 0.5
 			visible: parent.playing
 		}
@@ -199,7 +199,7 @@ Window {
 			anchors.rightMargin: screen.sizeUnit * 0.5
 			anchors.top: parent.top
 			anchors.topMargin: screen.sizeUnit * 0.5
-			text: fruitCount
+			text: game.fruitCount
 			font.pixelSize: screen.sizeUnit * 0.5
 			color: "yellow"
 			visible: parent.playing
@@ -231,7 +231,7 @@ Window {
 				id: crashTimer
 				interval: 1000; running: false; repeat: false;
 				onTriggered: {
-					if (fruitCount <= 0) {
+					if (game.fruitCount <= 0) {
 						game.state = "adds";
 					} else {
 						game.startPlaying();
@@ -247,13 +247,13 @@ Window {
 			visible: game.state === "adds"
 
 			onContinueButtonClicked: {
-				fruitCount += 1;
+				game.fruitCount += 1;
 				game.startPlaying();
 			}
 
 			onNewGameButtonClicked: {
-				score = 0;
-				fruitCount = initialFruitCount;
+				game.score = 0;
+				game.fruitCount = game.initialFruitCount;
 				game.startPlaying();
 			}
 		}
@@ -265,21 +265,21 @@ Window {
 			property bool wasKeyPressendInThisGame: false
 
 			onMouseXChanged: {
-				scooterX = Math.max(sceneMargin, Math.min(mouse.x, screen.width - sceneMargin))
+				game.scooterX = Math.max(sceneMargin, Math.min(mouse.x, screen.width - sceneMargin))
 			}
 			onPressed: {
 				wasKeyPressendInThisGame = true;
 			}
 
 			onReleased: {
-				if (wasKeyPressendInThisGame)
+				if (wasKeyPressendInThisGame && game.playing)
 					game.crashScooter();
 			}
 		}
 
 		Timer {
 			interval: 1000; running: true; repeat: true
-			onTriggered: score += 1
+			onTriggered: game.score += 1
 		}
 
 		states: [
