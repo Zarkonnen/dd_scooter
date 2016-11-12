@@ -16,5 +16,12 @@
         <file>assets/gfx/road/road0.png</file>
         <file>assets/gfx/road/road1.png</file>
         <file>assets/gfx/road/road2.png</file>
+        <file>assets/gfx/crash/curry.png</file>
+        <file>assets/gfx/crash/dabba-top.png</file>
+        <file>assets/gfx/crash/rice.png</file>
+        <file>assets/gfx/crash/roti.png</file>
+        <file>screens/CrashScreen.qml</file>
+        <file>assets/gfx/vehicles/scooter-colored.png</file>
+        <file>assets/gfx/adds/helleluja.jpg</file>
     </qresource>
 </RCC>

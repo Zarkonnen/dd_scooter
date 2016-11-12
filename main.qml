@@ -22,7 +22,8 @@ Window {
 		{ img: "wvrf.jpg", url: "http://worldvrforum.com" },
 		{ img: "ecal.jpg", url: "http://www.ecal.ch" },
 		{ img: "scribb.jpg", url: "http://www.mylenedreyer.ch" },
-		{ img: "ethgtc.png", url: "http://gtc.ethz.ch" }
+		{ img: "ethgtc.png", url: "http://gtc.ethz.ch" },
+		{ img: "helleluja.jpg", url: "http://oniroforge.ch/hell-eluja" }
 	]
 
 	Item
@@ -204,7 +205,7 @@ Window {
 			y: (parent.height - height) / 3
 			visible: parent.playing
 			Image {
-				source: "assets/gfx/vehicles/scooter.png"
+				source: "assets/gfx/vehicles/scooter-colored.png"
 				x: -width/2
 				y: -height/2
 				width: screen.sizeUnit/2
@@ -248,30 +249,21 @@ Window {
 		}
 
 		// crash animation screen
-
-		Text {
-			anchors.centerIn: parent
-			font.pixelSize: screen.sizeUnit
-			text: "Crash animation"
+		CrashScreen {
+			anchors.fill: parent
 			visible: game.state === "crash"
-			onVisibleChanged: { if (visible) crashTimer.start(); }
 
-			Timer {
-				id: crashTimer
-				interval: 1000; running: false; repeat: false;
-				onTriggered: {
-					if (game.fruitCount <= 0) {
-						game.state = "adds";
-					} else {
-						game.startPlaying();
-					}
+			onCrashScreenTimeout: {
+				if (game.fruitCount <= 0) {
+					game.state = "adds";
+				} else {
+					game.startPlaying();
 				}
 			}
 		}
 
 		// adds screen
 		AddsScreen {
-			id: addsScreen
 			anchors.fill: parent
 			visible: game.state === "adds"
 
