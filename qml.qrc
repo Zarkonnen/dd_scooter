@@ -23,5 +23,6 @@
         <file>screens/CrashScreen.qml</file>
         <file>assets/gfx/vehicles/scooter-colored.png</file>
         <file>assets/gfx/adds/helleluja.jpg</file>
+        <file>assets/gfx/crash/star.png</file>
     </qresource>
 </RCC>

@@ -9,6 +9,10 @@ Rectangle {
 
 	property int screenDuration: 1500
 
+	property real animationAngle: 0
+
+	property int starCount: 7
+
 	color: "black"
 
 	onVisibleChanged: {
@@ -63,6 +67,21 @@ Rectangle {
 		}
 	}
 
+	Repeater {
+		model: crashScreen.starCount
+		Item {
+			x: crashScreen.width/2 + 2*screen.sizeUnit*Math.cos(crashScreen.animationAngle + index*2*Math.PI/crashScreen.starCount)
+			y: crashScreen.height/2 + screen.sizeUnit + 2*screen.sizeUnit*Math.sin(crashScreen.animationAngle + index*2*Math.PI/crashScreen.starCount)
+			Image {
+				source: "qrc:/assets/gfx/crash/star.png"
+				width: screen.sizeUnit
+				height: width
+				x: -width/2
+				y: -height/2
+			}
+		}
+	}
+
 	Text {
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.top: parent.top
@@ -70,6 +89,11 @@ Rectangle {
 		font.pixelSize: screen.sizeUnit
 		color: "white"
 		text: "Crash"
+	}
+
+	SequentialAnimation on animationAngle {
+		loops: Animation.Infinite
+		PropertyAnimation { to: 2*Math.PI; duration: 10000 }
 	}
 
 	Timer {
