@@ -132,7 +132,7 @@ Window {
 				groups: ["car", "tuktuk"]
 				onAffectParticles: {
 					// collision detection
-					console.log(particles.length);
+					//console.log(particles.length);
 					for (var i=0; i<particles.length; i++) {
 						// other cars
 						var thisCar = particles[i];
