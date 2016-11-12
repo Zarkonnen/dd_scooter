@@ -40,7 +40,7 @@ Rectangle {
 				emitRate: 0
 				lifeSpan: screenDuration
 
-				velocity: AngleDirection { angleVariation: 180; magnitude: screen.sizeUnit*2; magnitudeVariation: screen.sizeUnit; }
+				velocity: AngleDirection { angleVariation: 180; magnitude: screen.sizeUnit*3; magnitudeVariation: screen.sizeUnit; }
 
 				size: screen.sizeUnit
 
@@ -54,7 +54,7 @@ Rectangle {
 		}
 
 		Friction {
-			factor: 0.98
+			factor: 0.985
 		}
 
 		Repeater {
