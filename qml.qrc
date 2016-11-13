@@ -24,5 +24,18 @@
         <file>assets/gfx/vehicles/scooter-colored.png</file>
         <file>assets/gfx/adds/helleluja.jpg</file>
         <file>assets/gfx/crash/star.png</file>
+        <file>assets/gfx/obstacles/bush0.png</file>
+        <file>assets/gfx/obstacles/bush1.png</file>
+        <file>assets/gfx/obstacles/garbage0.png</file>
+        <file>assets/gfx/obstacles/garbage1.png</file>
+        <file>assets/gfx/obstacles/garbage2.png</file>
+        <file>assets/gfx/obstacles/garbage3.png</file>
+        <file>assets/gfx/obstacles/pavement0.png</file>
+        <file>assets/gfx/obstacles/pavement1.png</file>
+        <file>assets/gfx/obstacles/pavement2.png</file>
+        <file>assets/gfx/obstacles/pothole0.png</file>
+        <file>assets/gfx/obstacles/pothole1.png</file>
+        <file>assets/gfx/obstacles/pothole2.png</file>
+        <file>assets/gfx/obstacles/pothole3.png</file>
     </qresource>
 </RCC>
