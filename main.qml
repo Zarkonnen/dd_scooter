@@ -83,25 +83,29 @@ Window {
 			property real speedUnit: screen.height / 300
 			property real maxCarSpeed: sizeUnit * 70
 
-            Emitter {
-                group: "pothole"
-                width: parent.width - screen.sizeUnit * 2
-                anchors.left: parent.left
-                anchors.leftMargin: screen.sizeUnit
-                height: screen.sizeUnit*3
-                anchors.bottom: parent.top
-                anchors.bottomMargin: height
-                startTime: 2000
 
-                maximumEmitted: 50
-                emitRate: 1. + game.score * 0.02
-                lifeSpan: Emitter.InfiniteLife
+			Repeater {
+				model: 4
+				Emitter {
+					group: "pothole" + index
+					width: parent.width - screen.sizeUnit * 2
+					anchors.left: parent.left
+					anchors.leftMargin: screen.sizeUnit
+					height: screen.sizeUnit*3
+					anchors.bottom: parent.top
+					anchors.bottomMargin: height
+					startTime: 0
 
-                velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
-                acceleration: PointDirection{ }
+					maximumEmitted: 20
+					emitRate: 0.5
+					lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
 
-                size: screen.sizeUnit * 0.5
-            }
+					velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					acceleration: PointDirection{ }
+
+					size: screen.sizeUnit * 0.5
+				}
+			}
 
 			Emitter {
 				group: "car"
@@ -223,11 +227,14 @@ Window {
 				}
 			}
 
-            ImageParticle {
-                groups: ["pothole"]
-                source: "assets/gfx/obstacles/pothole" + Math.floor(Math.random() * 4) + ".png"
-                entryEffect: ImageParticle.None
-            }
+			Repeater {
+				model: 4
+				ImageParticle {
+					groups: ["pothole" + index]
+					source: "assets/gfx/obstacles/pothole" + index + ".png"
+					entryEffect: ImageParticle.None
+				}
+			}
 
 			ImageParticle {
 				groups: ["car"]
