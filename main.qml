@@ -83,6 +83,26 @@ Window {
 			property real speedUnit: screen.height / 300
 			property real maxCarSpeed: sizeUnit * 70
 
+            Emitter {
+                group: "pothole"
+                width: parent.width - screen.sizeUnit * 2
+                anchors.left: parent.left
+                anchors.leftMargin: screen.sizeUnit
+                height: screen.sizeUnit*3
+                anchors.bottom: parent.top
+                anchors.bottomMargin: height
+                startTime: 2000
+
+                maximumEmitted: 50
+                emitRate: 1. + game.score * 0.02
+                lifeSpan: Emitter.InfiniteLife
+
+                velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                acceleration: PointDirection{ }
+
+                size: screen.sizeUnit * 0.5
+            }
+
 			Emitter {
 				group: "car"
 
@@ -121,15 +141,34 @@ Window {
 				size: screen.sizeUnit * 0.7
 			}
 
+            Emitter {
+                group: "scooter"
+
+                width: parent.width
+                height: screen.sizeUnit*3
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: -(height + size)
+                startTime: 2000
+
+                maximumEmitted: 50
+                emitRate: 1. + game.score * 0.02
+                lifeSpan: Emitter.InfiniteLife
+
+                velocity: PointDirection{ y: -20*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 7*particleSystem.speedUnit }
+                acceleration: PointDirection{ y: -5*particleSystem.speedUnit; xVariation: 1.5*particleSystem.speedUnit; yVariation: 1*particleSystem.speedUnit }
+
+                size: screen.sizeUnit * 0.5
+            }
+
 			Wander {
-				groups: ["car", "tuktuk"]
+                groups: ["car", "tuktuk", "scooter"]
 				xVariance: particleSystem.speedUnit * 10
 				pace: particleSystem.speedUnit * 10
 				affectedParameter: Wander.Acceleration
 			}
 
 			Affector {
-				groups: ["car", "tuktuk"]
+                groups: ["car", "tuktuk", "scooter"]
 				onAffectParticles: {
 					// collision detection
 					//console.log(particles.length);
@@ -184,6 +223,12 @@ Window {
 				}
 			}
 
+            ImageParticle {
+                groups: ["pothole"]
+                source: "assets/gfx/obstacles/pothole" + Math.floor(Math.random() * 4) + ".png"
+                entryEffect: ImageParticle.None
+            }
+
 			ImageParticle {
 				groups: ["car"]
 				source: "assets/gfx/vehicles/car.png"
@@ -197,6 +242,13 @@ Window {
 				colorVariation: 0.1
 				entryEffect: ImageParticle.None
 			}
+
+            ImageParticle {
+                groups: ["scooter"]
+                source: "assets/gfx/vehicles/scooter.png"
+                colorVariation: 1.0
+                entryEffect: ImageParticle.None
+            }
 		}
 
 		Item {
