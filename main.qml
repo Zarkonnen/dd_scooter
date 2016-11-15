@@ -97,7 +97,7 @@ Window {
 					startTime: 0
 
 					maximumEmitted: 20
-					emitRate: 0.5
+                    emitRate: 0.5
 					lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
 
 					velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
@@ -106,6 +106,144 @@ Window {
 					size: screen.sizeUnit * 0.5
 				}
 			}
+
+            Repeater {
+                model: 3
+                Emitter {
+                    group: "pavement" + index
+                    width: screen.sizeUnit * 0.2
+                    anchors.right: parent.right
+                    anchors.rightMargin: screen.sizeUnit * 0.2
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.9
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 3
+                Emitter {
+                    group: "pavement" + index
+                    width: screen.sizeUnit * 0.2
+                    anchors.left: parent.left
+                    anchors.leftMargin: screen.sizeUnit * 0.2
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 1.0
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 4
+                Emitter {
+                    group: "garbage" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.2
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 4
+                Emitter {
+                    group: "garbage" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.5
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 2
+                Emitter {
+                    group: "bush" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.2
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 2
+                Emitter {
+                    group: "bush" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.2
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
 
 			Emitter {
 				group: "car"
@@ -235,6 +373,33 @@ Window {
 					entryEffect: ImageParticle.None
 				}
 			}
+
+            Repeater {
+                model: 3
+                ImageParticle {
+                    groups: ["pavement" + index]
+                    source: "assets/gfx/obstacles/pavement" + index + ".png"
+                    entryEffect: ImageParticle.None
+                }
+            }
+
+            Repeater {
+                model: 4
+                ImageParticle {
+                    groups: ["garbage" + index]
+                    source: "assets/gfx/obstacles/garbage" + index + ".png"
+                    entryEffect: ImageParticle.None
+                }
+            }
+
+            Repeater {
+                model: 2
+                ImageParticle {
+                    groups: ["bush" + index]
+                    source: "assets/gfx/obstacles/bush" + index + ".png"
+                    entryEffect: ImageParticle.None
+                }
+            }
 
 			ImageParticle {
 				groups: ["car"]
