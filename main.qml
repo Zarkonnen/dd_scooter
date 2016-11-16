@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Particles 2.0
+import QtMultimedia 5.7
 import "screens"
 
 Window {
@@ -44,6 +45,7 @@ Window {
 		function crashScooter() {
 			game.fruitCount -= 1;
 			game.state = "crash";
+			carCrashSound.play();
 		}
 
 		function startPlaying() {
@@ -355,6 +357,11 @@ Window {
 				if (wasKeyPressendInThisGame && game.playing)
 					game.crashScooter();
 			}
+		}
+
+		Audio {
+			id: carCrashSound
+			source: "assets/sfx/car-crash.mp3"
 		}
 
 		Timer {
