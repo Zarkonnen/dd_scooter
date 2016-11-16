@@ -39,5 +39,10 @@
         <file>assets/gfx/obstacles/pothole3.png</file>
         <file>assets/gfx/vehicles/smoke.png</file>
         <file>assets/sfx/car-crash.mp3</file>
+        <file>assets/sfx/doublehonk.mp3</file>
+        <file>assets/sfx/honk1.mp3</file>
+        <file>assets/sfx/honk2.mp3</file>
+        <file>assets/sfx/honk3.mp3</file>
+        <file>assets/sfx/music-background.mp3</file>
     </qresource>
 </RCC>

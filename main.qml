@@ -54,6 +54,12 @@ Window {
 			game.state = "playing";
 		}
 
+		function getRandomInt(min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min)) + min;
+		}
+
 
 		Repeater {
 			id: roadRepeater
@@ -84,6 +90,7 @@ Window {
 
 			property real speedUnit: screen.height / 300
 			property real maxCarSpeed: sizeUnit * 70
+			property real roadSpeed: roadRepeater.screenTileCount * (screen.width / 4) / 5
 
 
 			Repeater {
@@ -100,9 +107,9 @@ Window {
 
 					maximumEmitted: 20
                     emitRate: 0.5
-					lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-					velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
 					acceleration: PointDirection{ }
 
 					size: screen.sizeUnit * 0.5
@@ -124,9 +131,9 @@ Window {
 
                     maximumEmitted: 50
                     emitRate: 0.9
-                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
                     acceleration: PointDirection{ }
 
                     size: screen.sizeUnit * 0.5
@@ -147,9 +154,9 @@ Window {
 
                     maximumEmitted: 50
                     emitRate: 1.0
-                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
                     acceleration: PointDirection{ }
 
                     size: screen.sizeUnit * 0.5
@@ -170,9 +177,9 @@ Window {
 
                     maximumEmitted: 50
                     emitRate: 0.2
-                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
                     acceleration: PointDirection{ }
 
                     size: screen.sizeUnit * 0.5
@@ -193,9 +200,9 @@ Window {
 
                     maximumEmitted: 50
                     emitRate: 0.5
-                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
                     acceleration: PointDirection{ }
 
                     size: screen.sizeUnit * 0.5
@@ -216,9 +223,9 @@ Window {
 
                     maximumEmitted: 50
                     emitRate: 0.2
-                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
                     acceleration: PointDirection{ }
 
                     size: screen.sizeUnit * 0.5
@@ -239,9 +246,9 @@ Window {
 
                     maximumEmitted: 50
                     emitRate: 0.2
-                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
-                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+					velocity: PointDirection{ y: particleSystem.roadSpeed }
                     acceleration: PointDirection{ }
 
                     size: screen.sizeUnit * 0.5
@@ -382,6 +389,22 @@ Window {
 								backCar.update = true;
 								frontCar.vy *= 1.05; //2 * particleSystem.speedUnit;
 								frontCar.update = true;
+
+								// play honk
+								var honkType = game.getRandomInt(0,4);
+								if (honkType === 0) {
+									if (honk0.playbackState !== Audio.PlayingState)
+										honk0.play();
+								} else if (honkType === 1) {
+									if (honk1.playbackState !== Audio.PlayingState)
+										honk1.play();
+								} else if (honkType === 2) {
+									if (honk2.playbackState !== Audio.PlayingState)
+										honk2.play();
+								} else if (honkType === 3) {
+									if (honk3.playbackState !== Audio.PlayingState)
+										honk3.play();
+								}
 							}
 						}
 						// scooter
@@ -574,6 +597,40 @@ Window {
 		Audio {
 			id: carCrashSound
 			source: "assets/sfx/car-crash.mp3"
+			audioRole: Audio.GameRole
+		}
+		Audio {
+			id: honk0
+			source: "assets/sfx/doublehonk.mp3"
+			volume: 0.7
+			audioRole: Audio.GameRole
+		}
+		Audio {
+			id: honk1
+			source: "assets/sfx/honk1.mp3"
+			volume: 0.6
+			audioRole: Audio.GameRole
+		}
+		Audio {
+			id: honk2
+			source: "assets/sfx/honk2.mp3"
+			volume: 0.6
+			audioRole: Audio.GameRole
+		}
+		Audio {
+			id: honk3
+			source: "assets/sfx/honk3.mp3"
+			volume: 0.6
+			audioRole: Audio.GameRole
+		}
+
+		Audio {
+			id: music
+			source: "assets/sfx/music-background.mp3"
+			volume: 0.8
+			audioRole: Audio.GameRole
+			autoPlay: true
+			loops: Audio.Infinite
 		}
 
 		Timer {
