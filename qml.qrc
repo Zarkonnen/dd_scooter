@@ -37,5 +37,6 @@
         <file>assets/gfx/obstacles/pothole1.png</file>
         <file>assets/gfx/obstacles/pothole2.png</file>
         <file>assets/gfx/obstacles/pothole3.png</file>
+        <file>assets/gfx/vehicles/smoke.png</file>
     </qresource>
 </RCC>
