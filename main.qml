@@ -32,7 +32,7 @@ Window {
 		id: game
 		anchors.fill: parent
 
-		property int initialFruitCount: 2
+		property int initialFruitCount: 3
 		property int fruitCount: initialFruitCount
 		property int score: 0
 
@@ -519,16 +519,30 @@ Window {
 			visible: parent.playing
 		}
 
-		Text {
-			anchors.right: parent.right
-			anchors.rightMargin: screen.sizeUnit * 0.5
-			anchors.top: parent.top
-			anchors.topMargin: screen.sizeUnit * 0.5
-			text: game.fruitCount
-			font.pixelSize: screen.sizeUnit * 0.5
-			color: "yellow"
-			visible: parent.playing
+		Repeater {
+			model: 3
+			Image {
+				source: "assets/gfx/gui/dabba.png"
+				anchors.right: parent.right
+				anchors.rightMargin: screen.sizeUnit * 0.5
+				anchors.top: parent.top
+				anchors.topMargin: (2+index) * screen.sizeUnit * 0.25
+				visible: game.fruitCount > index
+				width: screen.sizeUnit * 0.5
+				height: screen.sizeUnit * 0.5
+			}
 		}
+
+//		Text {
+//			anchors.right: parent.right
+//			anchors.rightMargin: screen.sizeUnit * 0.5
+//			anchors.top: parent.top
+//			anchors.topMargin: screen.sizeUnit * 0.5
+//			text: game.fruitCount
+//			font.pixelSize: screen.sizeUnit * 0.5
+//			color: "yellow"
+//			visible: parent.playing
+//		}
 
 		// splash screen
 

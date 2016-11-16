@@ -44,5 +44,6 @@
         <file>assets/sfx/honk2.mp3</file>
         <file>assets/sfx/honk3.mp3</file>
         <file>assets/sfx/music-background.mp3</file>
+        <file>assets/gfx/gui/dabba.png</file>
     </qresource>
 </RCC>
