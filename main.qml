@@ -99,15 +99,154 @@ Window {
 					startTime: 0
 
 					maximumEmitted: 20
-					emitRate: 0.5
+                    emitRate: 0.5
 					lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
 
 					velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
 					acceleration: PointDirection{ }
 
 					size: screen.sizeUnit * 0.5
+                    sizeVariation: screen.sizeUnit * 0.2
 				}
 			}
+
+            Repeater {
+                model: 3
+                Emitter {
+                    group: "pavement" + index
+                    width: screen.sizeUnit * 0.2
+                    anchors.right: parent.right
+                    anchors.rightMargin: screen.sizeUnit * 0.2
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.9
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 3
+                Emitter {
+                    group: "pavement" + index
+                    width: screen.sizeUnit * 0.2
+                    anchors.left: parent.left
+                    anchors.leftMargin: screen.sizeUnit * 0.2
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 1.0
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 4
+                Emitter {
+                    group: "garbage" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.2
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 4
+                Emitter {
+                    group: "garbage" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.5
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 2
+                Emitter {
+                    group: "bush" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.2
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
+
+            Repeater {
+                model: 2
+                Emitter {
+                    group: "bush" + index
+                    width: screen.sizeUnit * 0.7
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    height: screen.sizeUnit*3
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: height
+                    startTime: 0
+
+                    maximumEmitted: 50
+                    emitRate: 0.2
+                    lifeSpan: (screen.height + 2*height) * 1000 / (70*particleSystem.speedUnit)
+
+                    velocity: PointDirection{ y: 70*particleSystem.speedUnit; }
+                    acceleration: PointDirection{ }
+
+                    size: screen.sizeUnit * 0.5
+                }
+            }
 
 			Emitter {
 				group: "car"
@@ -119,7 +258,7 @@ Window {
 				startTime: 2000
 
 				maximumEmitted: 50
-				emitRate: 1. + game.score * 0.02
+                emitRate: 0.7 + game.score * 0.015
 				lifeSpan: Emitter.InfiniteLife
 
 				velocity: PointDirection{ y: -40*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 30*particleSystem.speedUnit }
@@ -138,7 +277,7 @@ Window {
 				startTime: 2000
 
 				maximumEmitted: 50
-				emitRate: 1. + game.score * 0.02
+                emitRate: 0.7 + game.score * 0.015
 				lifeSpan: Emitter.InfiniteLife
 
 				velocity: PointDirection{ y: -10*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 7*particleSystem.speedUnit }
@@ -157,7 +296,7 @@ Window {
                 startTime: 2000
 
                 maximumEmitted: 50
-                emitRate: 1. + game.score * 0.02
+                emitRate: 0.7 + game.score * 0.01
                 lifeSpan: Emitter.InfiniteLife
 
                 velocity: PointDirection{ y: -20*particleSystem.speedUnit; xVariation: 2*particleSystem.speedUnit; yVariation: 7*particleSystem.speedUnit }
@@ -172,6 +311,45 @@ Window {
 				pace: particleSystem.speedUnit * 10
 				affectedParameter: Wander.Acceleration
 			}
+
+            TrailEmitter {
+                group: "smoke"
+                follow: "car"
+                emitRatePerParticle: 10
+                lifeSpan: 1000
+                velocity: PointDirection{ y: 20*particleSystem.speedUnit; yVariation: 5*particleSystem.speedUnit; xVariation: 4*particleSystem.speedUnit }
+                size: screen.sizeUnit * 0.2
+                sizeVariation: screen.sizeUnit * 0.1
+                endSize: screen.sizeUnit * 0.03
+            }
+
+            TrailEmitter {
+                group: "smoke"
+                follow: "tuktuk"
+                emitRatePerParticle: 10
+                lifeSpan: 1000
+                velocity: PointDirection{ y: 20*particleSystem.speedUnit; yVariation: 5*particleSystem.speedUnit; xVariation: 4*particleSystem.speedUnit }
+                size: screen.sizeUnit * 0.1
+                sizeVariation: screen.sizeUnit * 0.05
+                endSize: screen.sizeUnit * 0.01
+            }
+
+            TrailEmitter {
+                group: "smoke"
+                follow: "scooter"
+                emitRatePerParticle: 4
+                lifeSpan: 500
+                velocity: PointDirection{ y: 20*particleSystem.speedUnit; yVariation: 5*particleSystem.speedUnit; xVariation: 4*particleSystem.speedUnit }
+                size: screen.sizeUnit * 0.1
+                sizeVariation: screen.sizeUnit * 0.05
+                endSize: screen.sizeUnit * 0.01
+            }
+
+            Turbulence {
+                anchors.fill: parent
+                groups: ["smoke"]
+                strength: 50
+            }
 
 			Affector {
                 groups: ["car", "tuktuk", "scooter"]
@@ -237,6 +415,40 @@ Window {
 					entryEffect: ImageParticle.None
 				}
 			}
+
+            Repeater {
+                model: 3
+                ImageParticle {
+                    groups: ["pavement" + index]
+                    source: "assets/gfx/obstacles/pavement" + index + ".png"
+                    entryEffect: ImageParticle.None
+                }
+            }
+
+            Repeater {
+                model: 4
+                ImageParticle {
+                    groups: ["garbage" + index]
+                    source: "assets/gfx/obstacles/garbage" + index + ".png"
+                    entryEffect: ImageParticle.None
+                }
+            }
+
+            Repeater {
+                model: 2
+                ImageParticle {
+                    groups: ["bush" + index]
+                    source: "assets/gfx/obstacles/bush" + index + ".png"
+                    entryEffect: ImageParticle.None
+                }
+            }
+
+            ImageParticle {
+                groups: ["smoke"]
+                source: "assets/gfx/vehicles/smoke.png"
+                colorVariation: 0.1
+                entryEffect: ImageParticle.None
+            }
 
 			ImageParticle {
 				groups: ["car"]
