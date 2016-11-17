@@ -105,7 +105,7 @@ Window {
 					anchors.bottomMargin: height
 					startTime: 0
 
-					maximumEmitted: 20
+                    maximumEmitted: 1000
                     emitRate: 0.5
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -129,7 +129,7 @@ Window {
                     anchors.bottomMargin: height
                     startTime: 0
 
-                    maximumEmitted: 50
+                    maximumEmitted: 1000
                     emitRate: 0.9
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -152,7 +152,7 @@ Window {
                     anchors.bottomMargin: height
                     startTime: 0
 
-                    maximumEmitted: 50
+                    maximumEmitted: 1000
                     emitRate: 1.0
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -175,7 +175,7 @@ Window {
                     anchors.bottomMargin: height
                     startTime: 0
 
-                    maximumEmitted: 50
+                    maximumEmitted: 1000
                     emitRate: 0.2
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -198,7 +198,7 @@ Window {
                     anchors.bottomMargin: height
                     startTime: 0
 
-                    maximumEmitted: 50
+                    maximumEmitted: 1000
                     emitRate: 0.5
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -221,7 +221,7 @@ Window {
                     anchors.bottomMargin: height
                     startTime: 0
 
-                    maximumEmitted: 50
+                    maximumEmitted: 1000
                     emitRate: 0.2
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -244,7 +244,7 @@ Window {
                     anchors.bottomMargin: height
                     startTime: 0
 
-                    maximumEmitted: 50
+                    maximumEmitted: 1000
                     emitRate: 0.2
 					lifeSpan: (screen.height + 2*height + size) * 1000 / particleSystem.roadSpeed
 
@@ -264,7 +264,7 @@ Window {
 				anchors.bottomMargin: -(height + size)
 				startTime: 2000
 
-				maximumEmitted: 50
+                maximumEmitted: 1000
                 emitRate: 0.7 + game.score * 0.015
 				lifeSpan: Emitter.InfiniteLife
 
@@ -283,7 +283,7 @@ Window {
 				anchors.bottomMargin: -(height + size)
 				startTime: 2000
 
-				maximumEmitted: 50
+                maximumEmitted: 1000
                 emitRate: 0.7 + game.score * 0.015
 				lifeSpan: Emitter.InfiniteLife
 
@@ -302,7 +302,7 @@ Window {
                 anchors.bottomMargin: -(height + size)
                 startTime: 2000
 
-                maximumEmitted: 50
+                maximumEmitted: 1000
                 emitRate: 0.7 + game.score * 0.01
                 lifeSpan: Emitter.InfiniteLife
 
@@ -347,6 +347,18 @@ Window {
                 emitRatePerParticle: 4
                 lifeSpan: 500
                 velocity: PointDirection{ y: 20*particleSystem.speedUnit; yVariation: 5*particleSystem.speedUnit; xVariation: 4*particleSystem.speedUnit }
+                size: screen.sizeUnit * 0.1
+                sizeVariation: screen.sizeUnit * 0.05
+                endSize: screen.sizeUnit * 0.01
+            }
+
+            Emitter {
+                group: "smoke"
+                lifeSpan: 800
+                emitRate: 4
+                x: game.scooterX
+                y: (parent.height - height) / 3
+                velocity: PointDirection{ y: 50*particleSystem.speedUnit; yVariation: 5*particleSystem.speedUnit; xVariation: 4*particleSystem.speedUnit }
                 size: screen.sizeUnit * 0.1
                 sizeVariation: screen.sizeUnit * 0.05
                 endSize: screen.sizeUnit * 0.01
@@ -616,7 +628,7 @@ Window {
 		Audio {
 			id: honk0
 			source: "assets/sfx/doublehonk.mp3"
-			volume: 0.7
+            volume: 0.2
 			audioRole: Audio.GameRole
 		}
 		Audio {
